@@ -1,4 +1,4 @@
-module com.tugalsan.trm.recorder {
+module com.tugalsan.trm.stringobfuscator {
     requires gwt.user;
     requires java.desktop;
     requires com.tugalsan.api.log;
