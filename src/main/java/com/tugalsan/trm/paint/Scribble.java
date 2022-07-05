@@ -34,12 +34,14 @@ package com.tugalsan.trm.paint;
   http://www.opensource.org/licenses/cpl1.0.php
 
  */
-
 import java.awt.*;
-import java.applet.*;
 import java.awt.event.*;
+import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseEvent;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
-public class Scribble extends Applet implements ActionListener, AdjustmentListener, MouseListener, MouseMotionListener {
+public class Scribble extends JFrame implements ActionListener, AdjustmentListener, MouseListener, MouseMotionListener {
 
     /* Maximum X and Maximum Y coordinate values. */
     private final int MAX_X = 800;
@@ -84,7 +86,7 @@ public class Scribble extends Applet implements ActionListener, AdjustmentListen
     private int OrHeight = 0;
     private int drawX = 0;
     private int drawY = 0;
-    private int eraserLength = 5;
+    private final int eraserLength = 5;
     private int udefRedValue = 255;
     private int udefGreenValue = 255;
     private int udefBlueValue = 255;
@@ -93,58 +95,58 @@ public class Scribble extends Applet implements ActionListener, AdjustmentListen
     private int opStatus = PEN_OP;
     private int colorStatus = 1;
     private Color mainColor = new Color(0, 0, 0);
-    private Color xorColor = new Color(255, 255, 255);
-    private Color statusBarColor = new Color(166, 166, 255);
+    private final Color xorColor = new Color(255, 255, 255);
+    private final Color statusBarColor = new Color(166, 166, 255);
     private Color userDefinedColor = new Color(udefRedValue, udefGreenValue, udefBlueValue);
 
     /* Operation Button definitions */
-    private Button penButton = new Button("Pen");
-    private Button lineButton = new Button("Line");
-    private Button eraserButton = new Button("Eraser");
-    private Button clearButton = new Button("Clear");
-    private Button rectButton = new Button("Rectangle");
-    private Button ovalButton = new Button("Oval");
-    private Button fillRectButton = new Button("Filled Rectangle");
-    private Button fillOvalButton = new Button("Filled Oval");
-    private Button splineButton = new Button("Spline");
-    private Button polygonButton = new Button("Polygon");
+    private final Button penButton = new Button("Pen");
+    private final Button lineButton = new Button("Line");
+    private final Button eraserButton = new Button("Eraser");
+    private final Button clearButton = new Button("Clear");
+    private final Button rectButton = new Button("Rectangle");
+    private final Button ovalButton = new Button("Oval");
+    private final Button fillRectButton = new Button("Filled Rectangle");
+    private final Button fillOvalButton = new Button("Filled Oval");
+    private final Button splineButton = new Button("Spline");
+    private final Button polygonButton = new Button("Polygon");
 
     /* Color Button definitions */
-    private Button blackButton = new Button("Black");
-    private Button blueButton = new Button("Blue");
-    private Button redButton = new Button("Red");
-    private Button greenButton = new Button("Green");
-    private Button purpleButton = new Button("Purple");
-    private Button orangeButton = new Button("Orange");
-    private Button pinkButton = new Button("Pink");
-    private Button grayButton = new Button("Gray");
-    private Button yellowButton = new Button("Yellow");
-    private Button userDefButton = new Button("User-Def");
+    private final Button blackButton = new Button("Black");
+    private final Button blueButton = new Button("Blue");
+    private final Button redButton = new Button("Red");
+    private final Button greenButton = new Button("Green");
+    private final Button purpleButton = new Button("Purple");
+    private final Button orangeButton = new Button("Orange");
+    private final Button pinkButton = new Button("Pink");
+    private final Button grayButton = new Button("Gray");
+    private final Button yellowButton = new Button("Yellow");
+    private final Button userDefButton = new Button("User-Def");
 
     /* User defined Color variables */
-    private Scrollbar redSlider = new Scrollbar(Scrollbar.HORIZONTAL, 0, 1, 0, 255);
-    private Scrollbar blueSlider = new Scrollbar(Scrollbar.HORIZONTAL, 0, 1, 0, 255);
-    private Scrollbar greenSlider = new Scrollbar(Scrollbar.HORIZONTAL, 0, 1, 0, 255);
+    private final Scrollbar redSlider = new Scrollbar(Scrollbar.HORIZONTAL, 0, 1, 0, 255);
+    private final Scrollbar blueSlider = new Scrollbar(Scrollbar.HORIZONTAL, 0, 1, 0, 255);
+    private final Scrollbar greenSlider = new Scrollbar(Scrollbar.HORIZONTAL, 0, 1, 0, 255);
 
     /* Assorted status values for different variables */
-    private TextField colorStatusBar = new TextField(20);
-    private TextField opStatusBar = new TextField(20);
-    private TextField mouseStatusBar = new TextField(10);
-    private TextField redValue = new TextField(3);
-    private TextField greenValue = new TextField(3);
-    private TextField blueValue = new TextField(3);
+    private final TextField colorStatusBar = new TextField(20);
+    private final TextField opStatusBar = new TextField(20);
+    private final TextField mouseStatusBar = new TextField(10);
+    private final TextField redValue = new TextField(3);
+    private final TextField greenValue = new TextField(3);
+    private final TextField blueValue = new TextField(3);
 
     /* Labels for operation and color fields */
-    private Label operationLabel = new Label("   Tool mode:");
-    private Label colorLabel = new Label("   Color mode:");
-    private Label cursorLabel = new Label("   Cursor:");
+    private final Label operationLabel = new Label("   Tool mode:");
+    private final Label colorLabel = new Label("   Color mode:");
+    private final Label cursorLabel = new Label("   Cursor:");
 
     /* Sub panels of the main applet */
-    private Panel controlPanel = new Panel(new GridLayout(11, 2, 0, 0));
-    private Panel drawPanel = new Panel();
-    private Panel statusPanel = new Panel();
-    private Panel udefcolPanel = new Panel(new GridLayout(3, 2, 0, 0));
-    private Panel udefdemcolPanel = new Panel();
+    private final JPanel controlPanel = new JPanel(new GridLayout(11, 2, 0, 0));
+    private final JPanel drawPanel = new JPanel();
+    private final JPanel statusPanel = new JPanel();
+    private final JPanel udefcolPanel = new JPanel(new GridLayout(3, 2, 0, 0));
+    private final JPanel udefdemcolPanel = new JPanel();
 
     public void init() {
         setLayout(new BorderLayout());
@@ -267,87 +269,88 @@ public class Scribble extends Applet implements ActionListener, AdjustmentListen
     All button operations and some labels, text field operations
     are handled in this method.
      */
+    @Override
     public void actionPerformed(ActionEvent e) {
         /* Determine what action has occured */
  /* Set the relative values           */
 
-        if (e.getActionCommand() == "Pen") {
+        if ("Pen".equals(e.getActionCommand())) {
             opStatus = PEN_OP;
         }
 
-        if (e.getActionCommand() == "Line") {
+        if ("Line".equals(e.getActionCommand())) {
             opStatus = LINE_OP;
         }
 
-        if (e.getActionCommand() == "Eraser") {
+        if ("Eraser".equals(e.getActionCommand())) {
             opStatus = ERASER_OP;
         }
 
-        if (e.getActionCommand() == "Clear") {
+        if ("Clear".equals(e.getActionCommand())) {
             opStatus = CLEAR_OP;
         }
 
-        if (e.getActionCommand() == "Rectangle") {
+        if ("Rectangle".equals(e.getActionCommand())) {
             opStatus = RECT_OP;
         }
 
-        if (e.getActionCommand() == "Oval") {
+        if ("Oval".equals(e.getActionCommand())) {
             opStatus = OVAL_OP;
         }
 
-        if (e.getActionCommand() == "Filled Rectangle") {
+        if ("Filled Rectangle".equals(e.getActionCommand())) {
             opStatus = FRECT_OP;
         }
 
-        if (e.getActionCommand() == "Filled Oval") {
+        if ("Filled Oval".equals(e.getActionCommand())) {
             opStatus = FOVAL_OP;
         }
 
-        if (e.getActionCommand() == "Polygon") {
+        if ("Polygon".equals(e.getActionCommand())) {
             opStatus = POLY_OP;
         }
 
-        if (e.getActionCommand() == "Spline") {
+        if ("Spline".equals(e.getActionCommand())) {
             opStatus = SPLINE_OP;
         }
 
-        if (e.getActionCommand() == "Black") {
+        if ("Black".equals(e.getActionCommand())) {
             colorStatus = 1;
         }
 
-        if (e.getActionCommand() == "Blue") {
+        if ("Blue".equals(e.getActionCommand())) {
             colorStatus = 2;
         }
 
-        if (e.getActionCommand() == "Green") {
+        if ("Green".equals(e.getActionCommand())) {
             colorStatus = 3;
         }
 
-        if (e.getActionCommand() == "Red") {
+        if ("Red".equals(e.getActionCommand())) {
             colorStatus = 4;
         }
 
-        if (e.getActionCommand() == "Purple") {
+        if ("Purple".equals(e.getActionCommand())) {
             colorStatus = 5;
         }
 
-        if (e.getActionCommand() == "Orange") {
+        if ("Orange".equals(e.getActionCommand())) {
             colorStatus = 6;
         }
 
-        if (e.getActionCommand() == "Pink") {
+        if ("Pink".equals(e.getActionCommand())) {
             colorStatus = 7;
         }
 
-        if (e.getActionCommand() == "Gray") {
+        if ("Gray".equals(e.getActionCommand())) {
             colorStatus = 8;
         }
 
-        if (e.getActionCommand() == "Yellow") {
+        if ("Yellow".equals(e.getActionCommand())) {
             colorStatus = 9;
         }
 
-        if (e.getActionCommand() == "User-Def") {
+        if ("User-Def".equals(e.getActionCommand())) {
             colorStatus = 10;
         }
 
@@ -447,6 +450,7 @@ public class Scribble extends Applet implements ActionListener, AdjustmentListen
         updateRGBValues();
     }
 
+    @Override
     public void adjustmentValueChanged(AdjustmentEvent e) {
         updateRGBValues();
     }
@@ -456,7 +460,7 @@ public class Scribble extends Applet implements ActionListener, AdjustmentListen
    Method will clear the whole drawPanel with
    the current background color
      */
-    public void clearPanel(Panel p) {
+    public void clearPanel(JPanel p) {
         opStatusBar.setText("Clear");
         Graphics g = p.getGraphics();
         g.setColor(p.getBackground());
@@ -763,7 +767,7 @@ public class Scribble extends Applet implements ActionListener, AdjustmentListen
         if (initialEraser) {
             setGraphicalDefaults(e);
             initialEraser = false;
-            g.setColor(mainColor.white);
+            g.setColor(Color.white);
             g.fillRect(mousex - eraserLength, mousey - eraserLength, eraserLength * 2, eraserLength * 2);
             g.setColor(Color.black);
             g.drawRect(mousex - eraserLength, mousey - eraserLength, eraserLength * 2, eraserLength * 2);
@@ -776,7 +780,7 @@ public class Scribble extends Applet implements ActionListener, AdjustmentListen
       moved from its previous position.
          */
         if (mouseHasMoved(e)) {
-            g.setColor(mainColor.white);
+            g.setColor(Color.white);
             g.drawRect(prevx - eraserLength, prevy - eraserLength, eraserLength * 2, eraserLength * 2);
 
             /* Get current mouse coordinates */
@@ -784,7 +788,7 @@ public class Scribble extends Applet implements ActionListener, AdjustmentListen
             mousey = e.getY();
 
             /* Draw eraser block to panel */
-            g.setColor(mainColor.white);
+            g.setColor(Color.white);
             g.fillRect(mousex - eraserLength, mousey - eraserLength, eraserLength * 2, eraserLength * 2);
             g.setColor(Color.black);
             g.drawRect(mousex - eraserLength, mousey - eraserLength, eraserLength * 2, eraserLength * 2);
@@ -917,6 +921,7 @@ public class Scribble extends Applet implements ActionListener, AdjustmentListen
    depending on what operation is the opstatus, the switch
    statement will call the relevent operation
      */
+    @Override
     public void mouseDragged(MouseEvent e) {
         updateMouseCoordinates(e);
 
@@ -964,6 +969,7 @@ public class Scribble extends Applet implements ActionListener, AdjustmentListen
     mode. At this stage the method will call the finalization routines
     for the current operation.
      */
+    @Override
     public void mouseReleased(MouseEvent e) {
         /* Update current mouse coordinates to screen */
         updateMouseCoordinates(e);
@@ -1012,6 +1018,7 @@ public class Scribble extends Applet implements ActionListener, AdjustmentListen
     This method will then update the current mouse x and coordinates
     on the screen.
      */
+    @Override
     public void mouseEntered(MouseEvent e) {
         updateMouseCoordinates(e);
     }
@@ -1097,7 +1104,7 @@ public class Scribble extends Applet implements ActionListener, AdjustmentListen
     public void releasedEraser() {
         initialEraser = true;
         Graphics g = drawPanel.getGraphics();
-        g.setColor(mainColor.white);
+        g.setColor(Color.white);
         g.drawRect(mousex - eraserLength, mousey - eraserLength, eraserLength * 2, eraserLength * 2);
     }
 
@@ -1155,17 +1162,16 @@ public class Scribble extends Applet implements ActionListener, AdjustmentListen
    and updates the mouse status bar with the new values.
      */
     public void updateMouseCoordinates(MouseEvent e) {
-        String xCoor = "";
-        String yCoor = "";
-
+        String xCoor;
         if (e.getX() < 0) {
             xCoor = "0";
         } else {
             xCoor = String.valueOf(e.getX());
         }
 
+        String yCoor;
         if (e.getY() < 0) {
-            xCoor = "0";
+            yCoor = "0";
         } else {
             yCoor = String.valueOf(e.getY());
         }
@@ -1220,6 +1226,7 @@ public class Scribble extends Applet implements ActionListener, AdjustmentListen
     /*
    Method updates mouse coordinates if mouse has been clicked
      */
+    @Override
     public void mouseClicked(MouseEvent e) {
         updateMouseCoordinates(e);
         switch (opStatus) {
@@ -1237,6 +1244,7 @@ public class Scribble extends Applet implements ActionListener, AdjustmentListen
     /*
    Method updates mouse coordinates if mouse has exited applet
      */
+    @Override
     public void mouseExited(MouseEvent e) {
         updateMouseCoordinates(e);
     }
@@ -1245,6 +1253,7 @@ public class Scribble extends Applet implements ActionListener, AdjustmentListen
     /*
    Method updates mouse coordinates if mouse has moved
      */
+    @Override
     public void mouseMoved(MouseEvent e) {
         updateMouseCoordinates(e);
     }
@@ -1253,6 +1262,7 @@ public class Scribble extends Applet implements ActionListener, AdjustmentListen
     /*
    Method updates mouse coordinates if mouse has been pressed
      */
+    @Override
     public void mousePressed(MouseEvent e) {
         updateMouseCoordinates(e);
     }
