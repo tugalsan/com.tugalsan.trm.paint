@@ -41,19 +41,15 @@ import java.applet.*;
 import java.awt.event.*;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseEvent;
-import java.lang.Math.*;
-import java.text.*;
-import java.io.*;
-import java.awt.Scrollbar.*;
 
 public class ScribbleApplet extends Applet implements ActionListener, AdjustmentListener, MouseListener, MouseMotionListener
 {
  /* Maximum X and Maximum Y coordinate values. */
- private final int MAX_X           = 800;
- private final int MAX_Y           = 600;
+// private final int MAX_X           = 800;
+// private final int MAX_Y           = 600;
 
  /* Operation Constants */
- private final int  NO_OP          = 0;
+// private final int  NO_OP          = 0;
  private final int  PEN_OP         = 1;
  private final int  LINE_OP        = 2;
  private final int  ERASER_OP      = 3;
@@ -91,7 +87,7 @@ public class ScribbleApplet extends Applet implements ActionListener, Adjustment
  private int  OrHeight             = 0;
  private int  drawX                = 0;
  private int  drawY                = 0;
- private int  eraserLength         = 5;
+ private final int  eraserLength         = 5;
  private int  udefRedValue         = 255;
  private int  udefGreenValue       = 255;
  private int  udefBlueValue        = 255;
@@ -100,60 +96,61 @@ public class ScribbleApplet extends Applet implements ActionListener, Adjustment
  private int    opStatus           = PEN_OP;
  private int    colorStatus        = 1;
  private Color  mainColor          = new Color(0,0,0);
- private Color  xorColor           = new Color(255,255,255);
- private Color  statusBarColor     = new Color(166,166,255);
+ private final Color  xorColor           = new Color(255,255,255);
+ private final Color  statusBarColor     = new Color(166,166,255);
  private Color  userDefinedColor   = new Color(udefRedValue,udefGreenValue,udefBlueValue);
 
  /* Operation Button definitions */
- private Button penButton          = new Button("Pen");
- private Button lineButton         = new Button("Line");
- private Button eraserButton       = new Button("Eraser");
- private Button clearButton        = new Button("Clear");
- private Button rectButton         = new Button("Rectangle");
- private Button ovalButton         = new Button("Oval");
- private Button fillRectButton     = new Button("Filled Rectangle");
- private Button fillOvalButton     = new Button("Filled Oval");
- private Button splineButton       = new Button("Spline");
- private Button polygonButton      = new Button("Polygon");
+ private final Button penButton          = new Button("Pen");
+ private final Button lineButton         = new Button("Line");
+ private final Button eraserButton       = new Button("Eraser");
+ private final Button clearButton        = new Button("Clear");
+ private final Button rectButton         = new Button("Rectangle");
+ private final Button ovalButton         = new Button("Oval");
+ private final Button fillRectButton     = new Button("Filled Rectangle");
+ private final Button fillOvalButton     = new Button("Filled Oval");
+ private final Button splineButton       = new Button("Spline");
+ private final Button polygonButton      = new Button("Polygon");
 
  /* Color Button definitions */
- private Button blackButton        = new Button("Black");
- private Button blueButton         = new Button("Blue");
- private Button redButton          = new Button("Red");
- private Button greenButton        = new Button("Green");
- private Button purpleButton       = new Button("Purple");
- private Button orangeButton       = new Button("Orange");
- private Button pinkButton         = new Button("Pink");
- private Button grayButton         = new Button("Gray");
- private Button yellowButton       = new Button("Yellow");
- private Button userDefButton      = new Button("User-Def");
+ private final Button blackButton        = new Button("Black");
+ private final Button blueButton         = new Button("Blue");
+ private final Button redButton          = new Button("Red");
+ private final Button greenButton        = new Button("Green");
+ private final Button purpleButton       = new Button("Purple");
+ private final Button orangeButton       = new Button("Orange");
+ private final Button pinkButton         = new Button("Pink");
+ private final Button grayButton         = new Button("Gray");
+ private final Button yellowButton       = new Button("Yellow");
+ private final Button userDefButton      = new Button("User-Def");
 
  /* User defined Color variables */
- private Scrollbar redSlider       = new Scrollbar(Scrollbar.HORIZONTAL, 0, 1, 0, 255);
- private Scrollbar blueSlider      = new Scrollbar(Scrollbar.HORIZONTAL, 0, 1, 0, 255);
- private Scrollbar greenSlider     = new Scrollbar(Scrollbar.HORIZONTAL, 0, 1, 0, 255);
+ private final Scrollbar redSlider       = new Scrollbar(Scrollbar.HORIZONTAL, 0, 1, 0, 255);
+ private final Scrollbar blueSlider      = new Scrollbar(Scrollbar.HORIZONTAL, 0, 1, 0, 255);
+ private final Scrollbar greenSlider     = new Scrollbar(Scrollbar.HORIZONTAL, 0, 1, 0, 255);
 
  /* Assorted status values for different variables */
- private TextField colorStatusBar  = new TextField(20);
- private TextField opStatusBar     = new TextField(20);
- private TextField mouseStatusBar  = new TextField(10);
- private TextField redValue        = new TextField(3);
- private TextField greenValue      = new TextField(3);
- private TextField blueValue       = new TextField(3);
+ private final TextField colorStatusBar  = new TextField(20);
+ private final TextField opStatusBar     = new TextField(20);
+ private final TextField mouseStatusBar  = new TextField(10);
+ private final TextField redValue        = new TextField(3);
+ private final TextField greenValue      = new TextField(3);
+ private final TextField blueValue       = new TextField(3);
 
  /* Labels for operation and color fields */
- private Label operationLabel      = new Label("   Tool mode:");
- private Label colorLabel          = new Label("   Color mode:");
- private Label cursorLabel         = new Label("   Cursor:");
+ private final Label operationLabel      = new Label("   Tool mode:");
+ private final Label colorLabel          = new Label("   Color mode:");
+ private final Label cursorLabel         = new Label("   Cursor:");
 
  /* Sub panels of the main applet */
- private Panel controlPanel        = new Panel(new GridLayout(11,2,0,0));
- private Panel drawPanel           = new Panel();
- private Panel statusPanel         = new Panel();
- private Panel udefcolPanel        = new Panel(new GridLayout(3,2,0,0));
- private Panel udefdemcolPanel     = new Panel();
+ private final Panel controlPanel        = new Panel(new GridLayout(11,2,0,0));
+ private final Panel drawPanel           = new Panel();
+ private final Panel statusPanel         = new Panel();
+ private final Panel udefcolPanel        = new Panel(new GridLayout(3,2,0,0));
+ private final Panel udefdemcolPanel     = new Panel();
 
 
+ @Override
  public void init()
  {
     setLayout(new BorderLayout());
@@ -276,69 +273,69 @@ public class ScribbleApplet extends Applet implements ActionListener, Adjustment
     All button operations and some labels, text field operations
     are handled in this method.
  */
- public void actionPerformed(ActionEvent e)
+@Override public void actionPerformed(ActionEvent e)
  {
     /* Determine what action has occured */
     /* Set the relative values           */
 
-    if (e.getActionCommand() == "Pen")
+    if (e.getActionCommand().equals("Pen"))
        opStatus = PEN_OP;
 
-    if (e.getActionCommand() == "Line")
+    if (e.getActionCommand() .equals( "Line"))
        opStatus = LINE_OP;
 
-    if (e.getActionCommand() == "Eraser")
+    if (e.getActionCommand() .equals( "Eraser"))
        opStatus = ERASER_OP;
 
-    if (e.getActionCommand() == "Clear")
+    if (e.getActionCommand() .equals( "Clear"))
        opStatus = CLEAR_OP;
 
-    if (e.getActionCommand() == "Rectangle")
+    if (e.getActionCommand() .equals( "Rectangle"))
        opStatus = RECT_OP;
 
-    if (e.getActionCommand() == "Oval")
+    if (e.getActionCommand() .equals( "Oval"))
        opStatus = OVAL_OP;
 
-    if (e.getActionCommand() == "Filled Rectangle")
+    if (e.getActionCommand() .equals( "Filled Rectangle"))
        opStatus = FRECT_OP;
 
-    if (e.getActionCommand() == "Filled Oval")
+    if (e.getActionCommand() .equals( "Filled Oval"))
        opStatus = FOVAL_OP;
 
-    if (e.getActionCommand() == "Polygon")
+    if (e.getActionCommand() .equals( "Polygon"))
        opStatus = POLY_OP;
 
-    if (e.getActionCommand() == "Spline")
+    if (e.getActionCommand() .equals( "Spline"))
        opStatus = SPLINE_OP;
 
-    if (e.getActionCommand() == "Black")
+    if (e.getActionCommand() .equals( "Black"))
        colorStatus = 1;
 
-    if (e.getActionCommand() == "Blue")
+    if (e.getActionCommand() .equals( "Blue"))
        colorStatus = 2;
 
-    if (e.getActionCommand() == "Green")
+    if (e.getActionCommand() .equals( "Green"))
        colorStatus = 3;
 
-    if (e.getActionCommand() == "Red")
+    if (e.getActionCommand() .equals( "Red"))
        colorStatus = 4;
 
-    if (e.getActionCommand() == "Purple")
+    if (e.getActionCommand() .equals( "Purple"))
        colorStatus = 5;
 
-    if (e.getActionCommand() == "Orange")
+    if (e.getActionCommand() .equals( "Orange"))
        colorStatus = 6;
 
-    if (e.getActionCommand() == "Pink")
+    if (e.getActionCommand() .equals( "Pink"))
        colorStatus = 7;
 
-    if (e.getActionCommand() == "Gray")
+    if (e.getActionCommand() .equals( "Gray"))
        colorStatus = 8;
 
-    if (e.getActionCommand() == "Yellow")
+    if (e.getActionCommand() .equals( "Yellow"))
        colorStatus = 9;
 
-    if (e.getActionCommand() == "User-Def")
+    if (e.getActionCommand() .equals( "User-Def"))
        colorStatus = 10;
 
     initialPolygon = true;
@@ -347,69 +344,49 @@ public class ScribbleApplet extends Applet implements ActionListener, Adjustment
     /* Update Operations status bar, with current tool */
     switch (opStatus)
     {
-       case PEN_OP   : opStatusBar.setText("Pen");
-                       break;
+       case PEN_OP -> opStatusBar.setText("Pen");
 
-       case LINE_OP  : opStatusBar.setText("Line");
-                       break;
+       case LINE_OP -> opStatusBar.setText("Line");
 
-       case ERASER_OP: opStatusBar.setText("Eraser");
-                       break;
+       case ERASER_OP -> opStatusBar.setText("Eraser");
 
-       case CLEAR_OP : clearPanel(drawPanel);
-                       break;
+       case CLEAR_OP -> clearPanel(drawPanel);
 
-       case RECT_OP  : opStatusBar.setText("Rectangle");
-                       break;
+       case RECT_OP -> opStatusBar.setText("Rectangle");
 
-       case OVAL_OP  : opStatusBar.setText("Oval");
-                       break;
+       case OVAL_OP -> opStatusBar.setText("Oval");
 
-       case FRECT_OP : opStatusBar.setText("Fill-Rectangle");
-                       break;
+       case FRECT_OP -> opStatusBar.setText("Fill-Rectangle");
 
-       case FOVAL_OP : opStatusBar.setText("Fill-Oval");
-                       break;
+       case FOVAL_OP -> opStatusBar.setText("Fill-Oval");
 
-       case POLY_OP : opStatusBar.setText("Polygon");
-                       break;
+       case POLY_OP -> opStatusBar.setText("Polygon");
 
-       case SPLINE_OP: opStatusBar.setText("Spline");
-                       break;
+       case SPLINE_OP -> opStatusBar.setText("Spline");
     }
 
     /* Update Color status bar, with current color */
     switch (colorStatus)
     {
-       case  1: colorStatusBar.setText("Black");
-                break;
+       case  1 -> colorStatusBar.setText("Black");
 
-       case  2:  colorStatusBar.setText("Blue");
-                 break;
+       case  2 -> colorStatusBar.setText("Blue");
 
-       case  3:  colorStatusBar.setText("Green");
-                 break;
+       case  3 -> colorStatusBar.setText("Green");
 
-       case  4:  colorStatusBar.setText("Red");
-                 break;
+       case  4 -> colorStatusBar.setText("Red");
 
-       case  5:  colorStatusBar.setText("Purple");
-                 break;
+       case  5 -> colorStatusBar.setText("Purple");
 
-       case  6:  colorStatusBar.setText("Orange");
-                 break;
+       case  6 -> colorStatusBar.setText("Orange");
 
-       case  7:  colorStatusBar.setText("Pink");
-                 break;
+       case  7 -> colorStatusBar.setText("Pink");
 
-       case  8:  colorStatusBar.setText("Gray");
-                 break;
+       case  8 -> colorStatusBar.setText("Gray");
 
-       case  9: colorStatusBar.setText("Yellow");
-                break;
+       case  9 -> colorStatusBar.setText("Yellow");
 
-       case 10: colorStatusBar.setText("User Defined Color");
-                break;
+       case 10 -> colorStatusBar.setText("User Defined Color");
     }
 
     /*
@@ -420,7 +397,7 @@ public class ScribbleApplet extends Applet implements ActionListener, Adjustment
  }
 
 
- public void adjustmentValueChanged(AdjustmentEvent e)
+@Override public void adjustmentValueChanged(AdjustmentEvent e)
  {
     updateRGBValues();
  }
@@ -433,7 +410,7 @@ public class ScribbleApplet extends Applet implements ActionListener, Adjustment
  public void clearPanel(Panel p)
  {
     opStatusBar.setText("Clear");
-    Graphics g = p.getGraphics();
+    var g = p.getGraphics();
     g.setColor(p.getBackground());
     g.fillRect(0,0,p.getBounds().width,p.getBounds().height);
   }
@@ -451,7 +428,7 @@ public class ScribbleApplet extends Applet implements ActionListener, Adjustment
  */
  public void penOperation(MouseEvent e)
  {
-    Graphics g  = drawPanel.getGraphics();
+    var g  = drawPanel.getGraphics();
     g.setColor(mainColor);
 
     /*
@@ -503,7 +480,7 @@ public class ScribbleApplet extends Applet implements ActionListener, Adjustment
  */
  public void lineOperation(MouseEvent e)
  {
-    Graphics g  = drawPanel.getGraphics();
+    var g  = drawPanel.getGraphics();
     g.setColor(mainColor);
 
     /*
@@ -550,7 +527,7 @@ public class ScribbleApplet extends Applet implements ActionListener, Adjustment
  */
  public void rectOperation(MouseEvent e)
  {
-    Graphics g  = drawPanel.getGraphics();
+    var g  = drawPanel.getGraphics();
     g.setColor(mainColor);
 
     /*
@@ -600,7 +577,7 @@ public class ScribbleApplet extends Applet implements ActionListener, Adjustment
  */
  public void ovalOperation(MouseEvent e)
  {
-    Graphics g  = drawPanel.getGraphics();
+    var g  = drawPanel.getGraphics();
     g.setColor(mainColor);
 
     /*
@@ -649,7 +626,7 @@ public class ScribbleApplet extends Applet implements ActionListener, Adjustment
  public void frectOperation(MouseEvent e)
  {
 
-    Graphics g  = drawPanel.getGraphics();
+    var g  = drawPanel.getGraphics();
     g.setColor(mainColor);
 
     /*
@@ -699,7 +676,7 @@ public class ScribbleApplet extends Applet implements ActionListener, Adjustment
  */
  public void fovalOperation(MouseEvent e)
  {
-    Graphics g  = drawPanel.getGraphics();
+    var g  = drawPanel.getGraphics();
     g.setColor(mainColor);
 
     /*
@@ -748,7 +725,7 @@ public class ScribbleApplet extends Applet implements ActionListener, Adjustment
  */
  public void eraserOperation(MouseEvent e)
  {
-    Graphics g  = drawPanel.getGraphics();
+    var g  = drawPanel.getGraphics();
 
     /*
       In initial state setup default values
@@ -758,7 +735,7 @@ public class ScribbleApplet extends Applet implements ActionListener, Adjustment
     {
        setGraphicalDefaults(e);
        initialEraser = false;
-       g.setColor(mainColor.white);
+       g.setColor(Color.white);
        g.fillRect(mousex-eraserLength, mousey-eraserLength,eraserLength*2,eraserLength*2);
        g.setColor(Color.black);
        g.drawRect(mousex-eraserLength,mousey-eraserLength,eraserLength*2,eraserLength*2);
@@ -772,7 +749,7 @@ public class ScribbleApplet extends Applet implements ActionListener, Adjustment
     */
     if (mouseHasMoved(e))
     {
-       g.setColor(mainColor.white);
+       g.setColor(Color.white);
        g.drawRect(prevx-eraserLength, prevy-eraserLength,eraserLength*2,eraserLength*2);
 
        /* Get current mouse coordinates */
@@ -780,7 +757,7 @@ public class ScribbleApplet extends Applet implements ActionListener, Adjustment
        mousey  = e.getY();
 
        /* Draw eraser block to panel */
-       g.setColor(mainColor.white);
+       g.setColor(Color.white);
        g.fillRect(mousex-eraserLength, mousey-eraserLength,eraserLength*2,eraserLength*2);
        g.setColor(Color.black);
        g.drawRect(mousex-eraserLength,mousey-eraserLength,eraserLength*2,eraserLength*2);
@@ -804,7 +781,7 @@ public class ScribbleApplet extends Applet implements ActionListener, Adjustment
     {
        mousex = e.getX();
        mousey = e.getY();
-       Graphics g = drawPanel.getGraphics();
+       var g = drawPanel.getGraphics();
        g.setColor(mainColor);
        g.drawLine(prevx,prevy,mousex,mousey);
        prevx = mousex;
@@ -932,41 +909,35 @@ public void splineOperation(MouseEvent e)
    depending on what operation is the opstatus, the switch
    statement will call the relevent operation
  */
- public void mouseDragged(MouseEvent e)
+@Override public void mouseDragged(MouseEvent e)
  {
     updateMouseCoordinates(e);
 
     switch (opStatus)
     {
-       /* If opStatus is PEN_OP  then call penOperation method */
-       case PEN_OP   : penOperation(e);
-                       break;
 
-       /* If opStatus is LINE_OP then call lineOperation method */
-       case LINE_OP  : lineOperation(e);
-                       break;
+       case PEN_OP -> penOperation(e);
 
-       /* If opStatus is RECt_OP  then call rectOperation method */
-       case RECT_OP  : rectOperation(e);
-                       break;
+       case LINE_OP -> lineOperation(e);
 
-       /* If opStatus is OVAL_OP then call ovalOperation method */
-       case OVAL_OP  : ovalOperation(e);
-                       break;
+       case RECT_OP -> rectOperation(e);
 
-       /* If opStatus is FRECT_OP  then call frectOperation method */
-       case FRECT_OP : frectOperation(e);
-                       break;
+       case OVAL_OP -> ovalOperation(e);
 
-       /* If opStatus is FOVAL_OP then call fovalOperation method */
-       case FOVAL_OP : fovalOperation(e);
-                       break;
+       case FRECT_OP -> frectOperation(e);
 
-       /* If opStatus is ERASER_OP then call eraserOperation method */
-       case ERASER_OP: eraserOperation(e);
-                       break;
+       case FOVAL_OP -> fovalOperation(e);
+
+       case ERASER_OP -> eraserOperation(e);
     }
- }
+     /* If opStatus is PEN_OP  then call penOperation method */
+     /* If opStatus is LINE_OP then call lineOperation method */
+     /* If opStatus is RECt_OP  then call rectOperation method */
+     /* If opStatus is OVAL_OP then call ovalOperation method */
+     /* If opStatus is FRECT_OP  then call frectOperation method */
+     /* If opStatus is FOVAL_OP then call fovalOperation method */
+     /* If opStatus is ERASER_OP then call eraserOperation method */
+      }
 
 
  /*
@@ -974,42 +945,36 @@ public void splineOperation(MouseEvent e)
     mode. At this stage the method will call the finalization routines
     for the current operation.
  */
- public void mouseReleased(MouseEvent e)
+@Override public void mouseReleased(MouseEvent e)
  {
     /* Update current mouse coordinates to screen */
     updateMouseCoordinates(e);
 
     switch (opStatus)
     {
-       /* If opStatus is PEN_OP  then call releasedPen method */
-       case PEN_OP    : releasedPen();
-                        break;
 
-       /* If opStatus is LINE_OP then call releasedLine method */
-       case LINE_OP   : releasedLine();
-                        break;
+       case PEN_OP -> releasedPen();
 
-       /* If opStatus is RECT_OP  then call releasedRect method */
-       case RECT_OP   : releasedRect();
-                        break;
+       case LINE_OP -> releasedLine();
 
-       /* If opStatus is OVAL_OP then call releasedOval method */
-       case OVAL_OP   : releasedOval();
-                        break;
+       case RECT_OP -> releasedRect();
 
-       /* If opStatus is FRECT_OP  then call releasedFrect method */
-       case FRECT_OP  : releasedFRect();
-                        break;
+       case OVAL_OP -> releasedOval();
 
-       /* If opStatus is FOVAL_OP then call releasedFoval method */
-       case FOVAL_OP  : releasedFOval();
-                        break;
+       case FRECT_OP -> releasedFRect();
 
-       /* If opStatus is ERASER_OP then call releasedEraser method */
-       case ERASER_OP : releasedEraser();
-                        break;
+       case FOVAL_OP -> releasedFOval();
+
+       case ERASER_OP -> releasedEraser();
     }
- }
+     /* If opStatus is PEN_OP  then call releasedPen method */
+     /* If opStatus is LINE_OP then call releasedLine method */
+     /* If opStatus is RECT_OP  then call releasedRect method */
+     /* If opStatus is OVAL_OP then call releasedOval method */
+     /* If opStatus is FRECT_OP  then call releasedFrect method */
+     /* If opStatus is FOVAL_OP then call releasedFoval method */
+     /* If opStatus is ERASER_OP then call releasedEraser method */
+      }
 
 
  /*
@@ -1017,7 +982,7 @@ public void splineOperation(MouseEvent e)
     This method will then update the current mouse x and coordinates
     on the screen.
  */
- public void mouseEntered(MouseEvent e)
+@Override public void mouseEntered(MouseEvent e)
  {
     updateMouseCoordinates(e);
  }
@@ -1031,35 +996,25 @@ public void splineOperation(MouseEvent e)
  {
     switch (colorStatus)
     {
-       case 1 : mainColor = Color.black;
-                break;
+       case 1 -> mainColor = Color.black;
 
-       case 2:  mainColor = Color.blue;
-                break;
+       case 2 -> mainColor = Color.blue;
 
-       case 3:  mainColor = Color.green;
-                break;
+       case 3 -> mainColor = Color.green;
 
-       case 4:  mainColor = Color.red;
-                break;
+       case 4 -> mainColor = Color.red;
 
-       case 5:  mainColor = Color.magenta;
-                break;
+       case 5 -> mainColor = Color.magenta;
 
-       case 6:  mainColor = Color.orange;
-                break;
+       case 6 -> mainColor = Color.orange;
 
-       case 7:  mainColor = Color.pink;
-                break;
+       case 7 -> mainColor = Color.pink;
 
-       case 8:  mainColor = Color.gray;
-                break;
+       case 8 -> mainColor = Color.gray;
 
-       case 9:  mainColor = Color.yellow;
-                break;
+       case 9 -> mainColor = Color.yellow;
 
-       case 10: mainColor = userDefinedColor;
-                break;
+       case 10 -> mainColor = userDefinedColor;
     }
  }
 
@@ -1084,7 +1039,7 @@ public void splineOperation(MouseEvent e)
     {
        System.out.println("Line has been released....");
        initialLine = true;
-       Graphics g  = drawPanel.getGraphics();
+       var g  = drawPanel.getGraphics();
        g.setColor(mainColor);
        g.drawLine(Orx,Ory,mousex,mousey);
     }
@@ -1098,8 +1053,8 @@ public void splineOperation(MouseEvent e)
  public void releasedEraser()
  {
     initialEraser = true;
-    Graphics g  = drawPanel.getGraphics();
-    g.setColor(mainColor.white);
+    var g  = drawPanel.getGraphics();
+    g.setColor(Color.white);
     g.drawRect(mousex-eraserLength,mousey-eraserLength,eraserLength*2,eraserLength*2);
  }
 
@@ -1111,7 +1066,7 @@ public void splineOperation(MouseEvent e)
  public void releasedRect()
  {
     initialRect = true;
-    Graphics g  = drawPanel.getGraphics();
+    var g  = drawPanel.getGraphics();
     g.setColor(mainColor);
     g.drawRect(drawX,drawY,OrWidth,OrHeight);
  }
@@ -1124,7 +1079,7 @@ public void splineOperation(MouseEvent e)
  public void releasedOval()
  {
     initialOval = true;
-    Graphics g  = drawPanel.getGraphics();
+    var g  = drawPanel.getGraphics();
     g.setColor(mainColor);
     g.drawOval(drawX,drawY,OrWidth,OrHeight);
  }
@@ -1137,7 +1092,7 @@ public void splineOperation(MouseEvent e)
  public void releasedFRect()
  {
     initialFRect = true;
-    Graphics g  = drawPanel.getGraphics();
+    var g  = drawPanel.getGraphics();
     g.setColor(mainColor);
     g.fillRect(drawX,drawY,OrWidth,OrHeight);
  }
@@ -1150,7 +1105,7 @@ public void splineOperation(MouseEvent e)
  public void releasedFOval()
  {
     initialFOval = true;
-    Graphics g  = drawPanel.getGraphics();
+    var g  = drawPanel.getGraphics();
     g.setColor(mainColor);
     g.fillOval(drawX - 1,drawY - 1,OrWidth + 2,OrHeight + 2);
  }
@@ -1162,8 +1117,8 @@ public void splineOperation(MouseEvent e)
  */
  public void updateMouseCoordinates(MouseEvent e)
  {
-    String xCoor ="";
-    String yCoor ="";
+    var xCoor ="";
+    var yCoor ="";
 
     if (e.getX() < 0) xCoor = "0";
     else
@@ -1213,7 +1168,7 @@ public void splineOperation(MouseEvent e)
     userDefinedColor = new Color(udefRedValue,udefGreenValue,udefBlueValue);
     userDefButton.setBackground(userDefinedColor);
 
-    Graphics g = udefdemcolPanel.getGraphics();
+    var g = udefdemcolPanel.getGraphics();
     g.setColor(userDefinedColor);
     g.fillRect(0,0,800,800);
  }
@@ -1222,16 +1177,14 @@ public void splineOperation(MouseEvent e)
  /*
    Method updates mouse coordinates if mouse has been clicked
  */
- public void mouseClicked(MouseEvent e)
+@Override public void mouseClicked(MouseEvent e)
  {
     updateMouseCoordinates(e);
     switch (opStatus)
     {
-       case 9  : splineOperation(e);
-                 break;
+       case 9 -> splineOperation(e);
 
-       case 10 : polygonOperation(e);
-                 break;
+       case 10 -> polygonOperation(e);
     }
 }
 
@@ -1239,7 +1192,7 @@ public void splineOperation(MouseEvent e)
  /*
    Method updates mouse coordinates if mouse has exited applet
  */
- public void mouseExited(MouseEvent e)
+@Override public void mouseExited(MouseEvent e)
  {
     updateMouseCoordinates(e);
  }
@@ -1248,7 +1201,7 @@ public void splineOperation(MouseEvent e)
  /*
    Method updates mouse coordinates if mouse has moved
  */
- public void mouseMoved(MouseEvent e)
+@Override public void mouseMoved(MouseEvent e)
  {
     updateMouseCoordinates(e);
  }
@@ -1257,7 +1210,7 @@ public void splineOperation(MouseEvent e)
  /*
    Method updates mouse coordinates if mouse has been pressed
  */
- public void mousePressed(MouseEvent e)
+@Override public void mousePressed(MouseEvent e)
  {
     updateMouseCoordinates(e);
  }
